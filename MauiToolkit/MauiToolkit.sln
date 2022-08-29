@@ -1,0 +1,59 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.32804.182
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{F84404EF-F911-4789-98CE-337816572464}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+		Directory.build.props = Directory.build.props
+		Directory.build.targets = Directory.build.targets
+		global.json = global.json
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MauiToolkit.Sample", "Source\MauiToolkit.Sample\MauiToolkit.Sample.csproj", "{B079F240-8F84-4D0D-9344-4F0A2822BAE2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MauiToolkit.Core", "Source\MauiToolkit.Core\MauiToolkit.Core.csproj", "{C70F1904-EFAF-425F-9633-BFFFEB1779DB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MauiToolkit", "Source\MauiToolkit\MauiToolkit.csproj", "{5AEF7C59-9C08-471E-BD1C-8462C92D264F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MauiToolkit.Interop", "Source\MauiToolkit.Interop\MauiToolkit.Interop.csproj", "{1D6AE84C-677C-4FC3-8F78-D1577DC93671}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B079F240-8F84-4D0D-9344-4F0A2822BAE2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B079F240-8F84-4D0D-9344-4F0A2822BAE2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B079F240-8F84-4D0D-9344-4F0A2822BAE2}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{B079F240-8F84-4D0D-9344-4F0A2822BAE2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B079F240-8F84-4D0D-9344-4F0A2822BAE2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B079F240-8F84-4D0D-9344-4F0A2822BAE2}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{C70F1904-EFAF-425F-9633-BFFFEB1779DB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C70F1904-EFAF-425F-9633-BFFFEB1779DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C70F1904-EFAF-425F-9633-BFFFEB1779DB}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{C70F1904-EFAF-425F-9633-BFFFEB1779DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C70F1904-EFAF-425F-9633-BFFFEB1779DB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C70F1904-EFAF-425F-9633-BFFFEB1779DB}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{5AEF7C59-9C08-471E-BD1C-8462C92D264F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5AEF7C59-9C08-471E-BD1C-8462C92D264F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5AEF7C59-9C08-471E-BD1C-8462C92D264F}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{5AEF7C59-9C08-471E-BD1C-8462C92D264F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5AEF7C59-9C08-471E-BD1C-8462C92D264F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5AEF7C59-9C08-471E-BD1C-8462C92D264F}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{1D6AE84C-677C-4FC3-8F78-D1577DC93671}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1D6AE84C-677C-4FC3-8F78-D1577DC93671}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1D6AE84C-677C-4FC3-8F78-D1577DC93671}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{1D6AE84C-677C-4FC3-8F78-D1577DC93671}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1D6AE84C-677C-4FC3-8F78-D1577DC93671}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1D6AE84C-677C-4FC3-8F78-D1577DC93671}.Release|Any CPU.Deploy.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {17D6D0C3-0815-4E85-8009-F163B7181A75}
+	EndGlobalSection
+EndGlobal

@@ -348,3 +348,8 @@ MigrationBackup/
 
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
+/MauiToolkit/Binary/net6.0
+/MauiToolkit/Binary/net6.0-android
+/MauiToolkit/Binary/net6.0-ios
+/MauiToolkit/Binary/net6.0-maccatalyst
+/MauiToolkit/Binary/net6.0-windows10.0.19041.0
