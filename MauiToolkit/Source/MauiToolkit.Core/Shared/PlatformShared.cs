@@ -24,12 +24,4 @@ public class PlatformShared
 
         return appName;
     }
-
-    public static FilepathBuilder CreatePathBuilder()
-    {
-        var builder = new FilepathBuilder();
-        builder.SetBasicDirectory();
-        return builder;
-    }
-
 }

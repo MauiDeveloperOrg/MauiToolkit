@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace MauiToolkit.Core.Builders;
+﻿namespace MauiToolkit.Core.Builders;
 public class FilepathBuilder
 {
-    internal FilepathBuilder()
+    private FilepathBuilder()
     {
 
     }
@@ -52,4 +46,12 @@ public class FilepathBuilder
 
         return path;
     }
+
+    public static FilepathBuilder Make()
+    {
+        var builder = new FilepathBuilder();
+        builder.SetBasicDirectory();
+        return builder;
+    }
+
 }
