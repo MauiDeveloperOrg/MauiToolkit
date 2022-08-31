@@ -17,4 +17,9 @@
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'tizen'">6.5</SupportedOSPlatformVersion>
 	</PropertyGroup>
 
+	<ItemGroup>
+	  <ProjectReference Include="..\MauiToolkit.Core\MauiToolkit.Core.csproj" />
+	  <ProjectReference Include="..\MauiToolkit.Interop\MauiToolkit.Interop.csproj" />
+	</ItemGroup>
+
 </Project>
