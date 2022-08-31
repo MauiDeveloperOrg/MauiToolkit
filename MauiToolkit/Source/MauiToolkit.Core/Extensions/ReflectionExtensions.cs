@@ -1,7 +1,6 @@
-﻿using System.Reflection;
+﻿namespace MauiToolkit.Core.Extensions;
 
-namespace MauiToolkit.Core.Extensions;
-public static class XReflectionExtensions
+public static class ReflectionExtensions
 {
     public static FieldInfo? GetField(this Type type, Func<FieldInfo, bool> predicate)
     {
