@@ -15,7 +15,7 @@ public static class ToolkitxExtensions
 
     static MauiAppBuilder UseHandlerMappers(this MauiAppBuilder builder)
     {
-        new WindowHandlerMapper();
+        WindowHandlerMapper.AttachMapper();
         return builder;
     }
 
