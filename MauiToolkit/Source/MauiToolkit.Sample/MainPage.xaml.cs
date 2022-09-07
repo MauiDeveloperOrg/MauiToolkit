@@ -1,4 +1,6 @@
-﻿namespace MauiToolkit.Sample;
+﻿using MauiToolkit.Core.Helpers;
+
+namespace MauiToolkit.Sample;
 
 public partial class MainPage : ContentPage
 {
@@ -7,6 +9,18 @@ public partial class MainPage : ContentPage
     public MainPage()
     {
         InitializeComponent();
+        Loaded += MainPage_Loaded;
+        HandlerChanged += MainPage_HandlerChanged;
+    }
+
+    private void MainPage_HandlerChanged(object? sender, EventArgs e)
+    {
+         
+    }
+
+    private void MainPage_Loaded(object? sender, EventArgs e)
+    {
+        var platform = Handler;
     }
 
     private void OnCounterClicked(object sender, EventArgs e)
@@ -17,7 +31,7 @@ public partial class MainPage : ContentPage
             CounterBtn.Text = $"Clicked {count} time";
         else
             CounterBtn.Text = $"Clicked {count} times";
-
+        var handlers = ServiceProviderHelper.GetService<IMauiHandlersCollection>();
         SemanticScreenReader.Announce(CounterBtn.Text);
     }
 }

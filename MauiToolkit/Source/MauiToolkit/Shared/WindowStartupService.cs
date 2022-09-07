@@ -6,7 +6,7 @@ internal partial class WindowStartupService : IService, IWindowStartupService
 {
     public WindowStartupService(Window window, IWindowHandler handler, WindowStartup windowStartup) : this(window, windowStartup)
     {
-       
+        
     }
 
     public WindowStartupService(Window window, WindowStartup windowStartup)

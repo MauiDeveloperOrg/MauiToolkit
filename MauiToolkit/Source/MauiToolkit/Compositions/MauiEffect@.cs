@@ -1,10 +1,11 @@
 ﻿namespace MauiToolkit.Compositions;
-public partial class MauiBlurEffect : BindableObject
+
+public partial class MauiEffect : BindableObject
 {
     public static readonly BindableProperty TintColorProperty =
                            BindableProperty.Create(propertyName: nameof(TintColor),
                                                    returnType: typeof(Color),
-                                                   declaringType: typeof(MauiBlurEffect),
+                                                   declaringType: typeof(MauiEffect),
                                                    defaultValue: Colors.Black,
                                                    propertyChanged: OnProperyChanged);
 
@@ -12,21 +13,21 @@ public partial class MauiBlurEffect : BindableObject
     public static readonly BindableProperty TintOpacityProperty =
                            BindableProperty.Create(propertyName: nameof(TintOpacity),
                                                    returnType: typeof(double),
-                                                   declaringType: typeof(MauiBlurEffect),
+                                                   declaringType: typeof(MauiEffect),
                                                    defaultValue: 0.5d,
                                                    propertyChanged: OnProperyChanged);
 
     public static readonly BindableProperty TintLuminosityOpacityProperty =
                            BindableProperty.Create(propertyName: nameof(TintLuminosityOpacity),
                                                    returnType: typeof(double),
-                                                   declaringType: typeof(MauiBlurEffect),
+                                                   declaringType: typeof(MauiEffect),
                                                    defaultValue: default,
                                                    propertyChanged: OnProperyChanged);
 
     public static readonly BindableProperty FallbackColorProperty =
                            BindableProperty.Create(propertyName: nameof(FallbackColor),
                                                    returnType: typeof(Color),
-                                                   declaringType: typeof(MauiBlurEffect),
+                                                   declaringType: typeof(MauiEffect),
                                                    defaultValue: Colors.Green,
                                                    propertyChanged: OnProperyChanged);
 
