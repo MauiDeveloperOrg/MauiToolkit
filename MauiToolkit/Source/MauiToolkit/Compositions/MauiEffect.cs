@@ -1,4 +1,5 @@
-﻿using MauiToolkit.Core.Helpers;
+﻿using MauiToolkit.Core.Core;
+using MauiToolkit.Core.Helpers;
 
 namespace MauiToolkit.Compositions;
 
@@ -15,10 +16,10 @@ public partial class MauiEffect
         if (bindable is not VisualElement visual)
             return;
 
- 
+        if (oldValue is MauiEffect oldEffect)
+            oldEffect.Detach();
 
-
+        if (newValue is MauiEffect newEffect)
+            newEffect.Attach(bindable);
     }
-
-    
 }
