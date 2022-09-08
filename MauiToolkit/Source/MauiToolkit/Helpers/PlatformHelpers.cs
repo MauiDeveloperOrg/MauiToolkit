@@ -14,16 +14,16 @@ public class PlatformHelpers
     //    return new WindowChromeService(window, windowChrome);
     //}
 
-    internal static IService? GetPlatformWindowStartupSevice(Window window, WindowStartup windowStartup)
-    {
-        if (window is null)
-            return default;
+    //internal static IService? GetPlatformWindowStartupSevice(Window window, WindowStartup windowStartup)
+    //{
+    //    if (window is null)
+    //        return default;
 
-        if (window.Handler is null)
-            return default;
+    //    if (window.Handler is null)
+    //        return default;
 
-        return new WindowStartupService(window, windowStartup);
-    }
+    //    return new WindowStartupService(window, windowStartup);
+    //}
 
     //internal static IService? GetPlatformWindowStartupSevice(Window window, IElementHandler handler, WindowStartup windowStartup)
     //{

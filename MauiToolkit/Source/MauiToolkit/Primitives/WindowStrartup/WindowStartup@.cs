@@ -137,6 +137,5 @@ public partial class WindowStartup : BindableObject
     {
 
     }
-
 }
 

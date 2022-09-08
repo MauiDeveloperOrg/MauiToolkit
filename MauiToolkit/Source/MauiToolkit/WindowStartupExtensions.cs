@@ -22,7 +22,7 @@ public static class WindowStartupExtensions
         if (window == null)
             return default;
 
-        var worker = WindowStartupWorker.GetWindowStartupWorker(window);
+        var worker = WindowStartup.GetWindowStartup(window);
         if (worker is not IProvider<IWindowStartupService> provider)
             return default;
 

@@ -15,7 +15,6 @@ public partial class WindowStartup
         target.RemoveBinding(WindowStartup.WindowStartupProperty);
     }
 
-
     private static void WindowStartupPropertyChanged(BindableObject bindable, object oldValue, object newValue)
     {
         if (bindable is not Window window)
@@ -24,24 +23,24 @@ public partial class WindowStartup
         if (ReferenceEquals(oldValue, newValue))
             return;
 
-        if (newValue is WindowStartup windowStartup)
+        if (oldValue is WindowStartup oldStartup)
         {
-            var windowStartupWorker = WindowStartupWorker.GetWindowStartupWorker(window);
-            windowStartupWorker?.Detach();
-
-            windowStartupWorker = new WindowStartupWorker(windowStartup);
-            WindowStartupWorker.SetWindowStartupWorker(window, windowStartupWorker);
-
-            windowStartupWorker.Attach(window);
-        }
-        else
-        {
-            var windowStartupWorker = WindowStartupWorker.GetWindowStartupWorker(window);
+            var windowStartupWorker = oldStartup.WindowStartupWorker;
             if (windowStartupWorker is null)
                 return;
 
             windowStartupWorker.Detach();
-            bindable.RemoveBinding(WindowStartupWorker.WindowStartupWorkerProperty);
+            oldStartup.WindowStartupWorker = default;
+        }
+
+        if (newValue is WindowStartup windowStartup)
+        {
+            var oldWorker = windowStartup.WindowStartupWorker;
+            oldWorker?.Detach();
+
+            var windowStartupWorker = new WindowStartupWorker(windowStartup);
+            windowStartupWorker.Attach(window);
+            windowStartup.WindowStartupWorker = windowStartupWorker;
         }
     }
 }

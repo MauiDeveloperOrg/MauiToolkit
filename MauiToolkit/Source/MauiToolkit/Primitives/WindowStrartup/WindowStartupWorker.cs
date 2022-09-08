@@ -1,16 +1,100 @@
-﻿namespace MauiToolkit.Primitives.WindowStrartup;
+﻿using MauiToolkit.Core.Core;
 
-internal partial class WindowStartupWorker
+namespace MauiToolkit.Primitives.WindowStrartup;
+internal partial class WindowStartupWorker : IAttachedObject
 {
-    public static readonly BindableProperty WindowStartupWorkerProperty =
-                          BindableProperty.CreateAttached("WindowStartupWorker", typeof(WindowStartupWorker), typeof(WindowStartupWorker), default, propertyChanged: WindowStartupWorkerPropertyChanged);
+    public WindowStartupWorker(WindowStartup windowStartup)
+    {
+        ArgumentNullException.ThrowIfNull(windowStartup, nameof(windowStartup));
+        _WindowStartup = windowStartup;
+    }
 
-    public static WindowStartupWorker GetWindowStartupWorker(Window target) => (WindowStartupWorker)target.GetValue(WindowStartupWorkerProperty);
-    public static void SetWindowStartupWorker(Window target, WindowStartupWorker value) => target.SetValue(WindowStartupWorkerProperty, value);
+    readonly WindowStartup _WindowStartup;
 
-    private static void WindowStartupWorkerPropertyChanged(BindableObject bindable, object oldValue, object newValue)
+    bool _IsAttached = false;
+
+    Window? _AssociatedObject;
+    BindableObject? IAttachedObject.AssociatedObject => _AssociatedObject;
+    bool IAttachedObject.IsAttached => _IsAttached;
+
+    public void Attach(BindableObject bindableObject)
+    {
+        if (_IsAttached)
+            return;
+
+        if (bindableObject is not Window window)
+            return;
+
+        OnAttaching(window);
+        _AssociatedObject = window;
+        window.HandlerChanging += Window_HandlerChanging;
+        window.HandlerChanged += Window_HandlerChanged;
+        window.Created += Window_Created;
+        window.Deactivated += Window_Deactivated;
+        window.Destroying += Window_Destroying;
+        window.Stopped += Window_Stopped;
+        _WindowStartup.PropertyChanged += WindowStartup_PropertyChanged;
+        _IsAttached = true;
+        OnAttached();
+    }
+
+    public void Detach()
+    {
+        if (!_IsAttached)
+            return;
+
+        var window = _AssociatedObject;
+        if (window is null)
+            return;
+
+        OnDetaching();
+        _AssociatedObject = default;
+        window.HandlerChanging -= Window_HandlerChanging;
+        window.HandlerChanged -= Window_HandlerChanged;
+        window.Created -= Window_Created;
+        window.Destroying -= Window_Destroying;
+        window.Stopped -= Window_Stopped;
+        _WindowStartup.PropertyChanged -= WindowStartup_PropertyChanged;
+        _IsAttached = false;
+        OnDetached(window);
+    }
+
+    private void Window_Created(object? sender, EventArgs e)
     {
 
     }
 
+    private void Window_HandlerChanging(object? sender, HandlerChangingEventArgs e)
+    {
+        if (sender is not Window window)
+            return;
+    }
+
+    private void Window_HandlerChanged(object? sender, EventArgs e) => Loaded();
+
+    private void Window_Destroying(object? sender, EventArgs e) => Destroying();
+
+    private void Window_Deactivated(object? sender, EventArgs e)
+    {
+
+    }
+
+    private void Window_Stopped(object? sender, EventArgs e) => Stopped();
+
+    private void WindowStartup_PropertyChanged(object? sender, PropertyChangedEventArgs e)
+    {
+        if (string.IsNullOrWhiteSpace(e?.PropertyName))
+            return;
+
+        PropertyChanged(e.PropertyName);
+    }
+
+    partial void OnAttaching(Window window);
+    partial void OnAttached();
+    partial void OnDetaching();
+    partial void OnDetached(Window window);
+    partial void Loaded();
+    partial void Destroying();
+    partial void Stopped();
+    partial void PropertyChanged(string name);
 }
