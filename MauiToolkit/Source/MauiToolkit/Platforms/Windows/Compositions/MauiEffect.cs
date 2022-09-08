@@ -23,7 +23,7 @@ public partial class MauiEffect
 
     partial void OnDetaching()
     {
-         
+        _PlatformAcrylicBrush = default;
     }
 
     partial void OnDetached(VisualElement view)

@@ -21,7 +21,7 @@ public partial class MauiEffect : IAttachedObject
         OnAttaching(view);
         AssociatedObject = bindableObject;
         _View = view;
-        view.Loaded += View_Loaded;       
+        view.Loaded += View_Loaded;
         IsAttached = true;
         OnAttached();
     }
@@ -36,7 +36,7 @@ public partial class MauiEffect : IAttachedObject
         if (view is null)
             return;
 
-        OnDetaching();   
+        OnDetaching();
         AssociatedObject = default;
         _View = default;
         view.Loaded -= View_Loaded;

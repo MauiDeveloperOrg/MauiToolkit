@@ -25,7 +25,7 @@
 
             <Grid WidthRequest="200" HeightRequest="200">
                 <toolkit:MauiEffect.BlurEffect>
-                    <toolkit:MauiEffect TintColor="Black"/>
+                    <toolkit:MauiEffect TintColor="Black" TintLuminosityOpacity="0.3" TintOpacity="0.4" FallbackColor="Blue" />
                 </toolkit:MauiEffect.BlurEffect>
             </Grid>
 
