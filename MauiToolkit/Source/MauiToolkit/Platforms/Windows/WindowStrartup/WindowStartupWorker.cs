@@ -8,6 +8,7 @@ internal partial class WindowStartupWorker
 {
     MicrosoftuiXaml.Window? _Window;
     MicrosoftuiWindowing.AppWindow? _AppWindow;
+    IDisposable? _Backdrop;
 
     partial void OnAttaching(Window window)
     {

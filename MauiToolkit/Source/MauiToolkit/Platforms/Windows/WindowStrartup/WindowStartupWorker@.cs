@@ -12,8 +12,6 @@ namespace MauiToolkit.Primitives.WindowStrartup;
 
 internal partial class WindowStartupWorker
 {
-    IDisposable? _Backdrop;
-
     bool SwitchBackdrop(BackdropsKind kind, BackdropConfigurations config)
     {
         _Backdrop?.Dispose();
@@ -64,17 +62,7 @@ internal partial class WindowStartupWorker
     bool ShowWindow(WindowPresenterKind kind, bool isFllowMouse, WindowAlignment alignment, Size size)
     {
         MoveWindow(isFllowMouse, alignment, size);
-        switch (kind)
-        {
-            case WindowPresenterKind.Maximize:
-            case WindowPresenterKind.FullScreen:
-                ShowPresenter(kind);
-                break;
-            default:
-                ShowPresenter(kind);
-                break;
-        }
-
+        ShowPresenter(kind);
         return true;
     }
 
