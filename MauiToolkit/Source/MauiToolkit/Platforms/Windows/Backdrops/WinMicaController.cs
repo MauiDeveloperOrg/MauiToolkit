@@ -1,16 +1,74 @@
-﻿using MauiToolkit.Interop.Platforms.Windows.Primitives;
+﻿using MauiToolkit.Configurations;
+using MauiToolkit.Core.Platforms.Windows.Extensions;
+using MauiToolkit.Interop.Platforms.Windows.Primitives;
+using WinRT;
+using MicrosoftBackdrops = Microsoft.UI.Composition.SystemBackdrops;
+using MicrosoftuiComposition = Microsoft.UI.Composition;
+using MicrosoftuiXaml = Microsoft.UI.Xaml;
 
 namespace MauiToolkit.Platforms.Windows.Backdrops;
-internal class WinMicaController : IDisposable
+internal class WinMicaController : BackdropController
 {
-    public WinMicaController()
+    public WinMicaController(MicrosoftuiXaml.Window window, BackdropConfigurations config) :base(window, config)
     {
-        var maker = SystemDispatcherQueue.Make();
-        maker.EnsureWindowsSystemDispatcherQueueController();
+       
+
     }
 
-    public void Dispose()
+    MicrosoftBackdrops.MicaController? _MicaController;
+
+    protected override bool IsSupported()
     {
-        
+        if (!MicrosoftBackdrops.MicaController.IsSupported())
+            return false;
+
+        return true;
+    }
+
+    protected override bool OnDetaching(MicrosoftBackdrops.SystemBackdropConfiguration systemConfiguration)
+    {
+        if (_Config is null)
+            return false;
+
+        _MicaController = new()
+        {
+            Kind = _Config.IsUseBaseKind ? MicrosoftBackdrops.MicaKind.Base : MicrosoftBackdrops.MicaKind.BaseAlt,
+            LuminosityOpacity = _Config.LuminosityOpacity,
+            TintOpacity = _Config.TintOpacity,
+            TintColor = _Config.TintColor.ToPlatformColor(),
+        };
+
+        var iCompositionSupportsSystemBackdrop = _Window?.As<MicrosoftuiComposition.ICompositionSupportsSystemBackdrop>();
+        if (iCompositionSupportsSystemBackdrop is null)
+            return false;
+
+        _MicaController.AddSystemBackdropTarget(iCompositionSupportsSystemBackdrop);
+        _MicaController.SetSystemBackdropConfiguration(_SystemBackdropConfiguration);
+
+        return true;
+
+    }
+
+    protected override bool PropertyChanged()
+    {
+        if (_MicaController is null)
+            return false;
+
+        if (_Config is null)
+            return false;
+
+        _MicaController.Kind = _Config.IsUseBaseKind ? MicrosoftBackdrops.MicaKind.Base : MicrosoftBackdrops.MicaKind.BaseAlt;
+        _MicaController.LuminosityOpacity = _Config.LuminosityOpacity;
+        _MicaController.TintOpacity = _Config.TintOpacity;
+        _MicaController.TintColor = _Config.TintColor.ToPlatformColor();
+
+        return true;
+    }
+
+    protected override bool Disposing()
+    {
+        _MicaController?.Dispose();
+        _MicaController = default;
+        return true;
     }
 }

@@ -36,9 +36,14 @@ internal partial class WindowStartupWorker
             return;
 
         _Window = platformWindow;
+        _AppWindow = platformWindow.GetAppWindow();
 
+        SwitchBackdrop(_WindowStartup.BackdropsKind, _WindowStartup.BackdropConfigurations);
+        ShownInSwitchers(_WindowStartup.ShowInSwitcher);
+        ShowWindow(_WindowStartup.WindowPresenterKind, _WindowStartup.IsShowFllowMouse, _WindowStartup.WindowAlignment, new Size(_WindowStartup.Width, _WindowStartup.Height));
+        ShowInTopMost(_WindowStartup.TopMost);
 
-
+        return;
     }
 
     partial void Destroying()
@@ -48,7 +53,8 @@ internal partial class WindowStartupWorker
 
     partial void Stopped()
     {
-        
+        _Backdrop?.Dispose();
+        _Backdrop = default;
     }
 
     partial void PropertyChanged(string name)

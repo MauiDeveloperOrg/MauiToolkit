@@ -2,9 +2,10 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:toolkit="http://www.mauitoolkit.com"
-             x:Class="MauiToolkit.Sample.MainPage">
+             x:Class="MauiToolkit.Sample.MainPage"
+             BackgroundColor="Transparent">
 
-    <ScrollView>
+    <ScrollView BackgroundColor="Transparent">
         <Grid
   
             VerticalOptions="Center">
@@ -23,10 +24,24 @@
                 Clicked="OnCounterClicked"
                 HorizontalOptions="Center" />
 
-            <Grid WidthRequest="200" HeightRequest="200">
-                <toolkit:MauiEffect.BlurEffect>
-                    <toolkit:MauiEffect TintColor="Black" TintLuminosityOpacity="0.3" TintOpacity="0.4" FallbackColor="Blue" />
-                </toolkit:MauiEffect.BlurEffect>
+            <Grid WidthRequest="300" HeightRequest="300">
+                <Border WidthRequest="100" HeightRequest="100" HorizontalOptions="Start" VerticalOptions="Start" BackgroundColor="DeepSkyBlue"></Border>
+                <Border WidthRequest="100" HeightRequest="100"  HorizontalOptions="End" VerticalOptions="End" BackgroundColor="Yellow"></Border>
+                <Border Stroke="#C49B33"
+                        StrokeThickness="0"
+                        StrokeShape="RoundRectangle 100,100,100,100"
+                        BackgroundColor="Purple"
+                        HeightRequest="200"
+                        WidthRequest="200"
+                        HorizontalOptions="Center">
+                </Border>
+
+                <Border Margin="10" StrokeThickness="0">
+                    <toolkit:MauiEffect.BlurEffect>
+                        <toolkit:MauiEffect TintColor="SkyBlue" TintLuminosityOpacity="1" TintOpacity="0" FallbackColor="Blue" />
+                    </toolkit:MauiEffect.BlurEffect>
+                </Border>
+               
             </Grid>
 
         </Grid>

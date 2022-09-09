@@ -1,157 +1,68 @@
 ﻿using MauiToolkit.Configurations;
 using MauiToolkit.Core.Platforms.Windows.Extensions;
-using MauiToolkit.Interop.Platforms.Windows.Primitives;
 using WinRT;
 using MicrosoftBackdrops = Microsoft.UI.Composition.SystemBackdrops;
 using MicrosoftuiComposition = Microsoft.UI.Composition;
 using MicrosoftuiXaml = Microsoft.UI.Xaml;
 
 namespace MauiToolkit.Platforms.Windows.Backdrops;
-internal class WinAcrylicController : IDisposable
+internal class WinAcrylicController : BackdropController
 {
-    public WinAcrylicController(MicrosoftuiXaml.Window window, BackdropConfigurations config)
+    public WinAcrylicController(MicrosoftuiXaml.Window window, BackdropConfigurations config) : base(window, config)
     {
-        ArgumentNullException.ThrowIfNull(config, nameof(config));
-        ArgumentNullException.ThrowIfNull(window, nameof(window));
 
-        if (!MicrosoftBackdrops.DesktopAcrylicController.IsSupported())
-            return;
-
-        _Config = config;
-        _Window = window;
-
-        var maker = SystemDispatcherQueue.Make();
-        maker.EnsureWindowsSystemDispatcherQueueController();
-
-        _SystemBackdropConfiguration = new()
-        {
-            IsInputActive = true,
-            IsHighContrast = config.IsHighContrast,
-            HighContrastBackgroundColor = config.HighContrastBackgroundColor?.ToPlatformColor(),
-        };
-
-        _AcrylicController = new()
-        {
-            LuminosityOpacity = config.LuminosityOpacity,
-            TintOpacity = config.TintOpacity,
-            TintColor = config.TintColor.ToPlatformColor(),
-        };
-
-        LoadTheme();
-        var iCompositionSupportsSystemBackdrop = window.As<MicrosoftuiComposition.ICompositionSupportsSystemBackdrop>();
-        _AcrylicController.AddSystemBackdropTarget(iCompositionSupportsSystemBackdrop);
-        _AcrylicController.SetSystemBackdropConfiguration(_SystemBackdropConfiguration);
-
-        config.PropertyChanged += Config_PropertyChanged;
-
-        var application = Application.Current;
-        if (application is not null)
-            application.RequestedThemeChanged += Application_RequestedThemeChanged;
-
-        window.Activated += Window_Activated;
     }
 
-    MicrosoftuiXaml.Window? _Window;
-    BackdropConfigurations? _Config;
     MicrosoftBackdrops.DesktopAcrylicController? _AcrylicController;
-    MicrosoftBackdrops.SystemBackdropConfiguration? _SystemBackdropConfiguration;
 
-    private void Config_PropertyChanged(object? sender, PropertyChangedEventArgs e)
+    protected override bool IsSupported()
     {
-        if (_SystemBackdropConfiguration is null)
-            return;
-
-        if (_AcrylicController is null)
-            return;
-
-        if (_Config is null)
-            return;
-
-        _SystemBackdropConfiguration.IsHighContrast = _Config.IsHighContrast;
-        _SystemBackdropConfiguration.HighContrastBackgroundColor = _Config.HighContrastBackgroundColor?.ToPlatformColor();
-
-        _AcrylicController.LuminosityOpacity = _Config.LuminosityOpacity;
-        _AcrylicController.TintOpacity = _Config.TintOpacity;
-        _AcrylicController.TintColor = _Config.TintColor.ToPlatformColor();
-    }
-
-    private void Application_RequestedThemeChanged(object? sender, AppThemeChangedEventArgs e)
-    {
-        if (_SystemBackdropConfiguration is null)
-            return;
-
-        switch (e.RequestedTheme)
-        {
-            case AppTheme.Unspecified:
-                _SystemBackdropConfiguration.Theme = MicrosoftBackdrops.SystemBackdropTheme.Default;
-                break;
-            case AppTheme.Light:
-                _SystemBackdropConfiguration.Theme = MicrosoftBackdrops.SystemBackdropTheme.Light;
-                break;
-            case AppTheme.Dark:
-                _SystemBackdropConfiguration.Theme = MicrosoftBackdrops.SystemBackdropTheme.Dark;
-                break;
-            default:
-                break;
-        }
-    }
-
-    private void Window_Activated(object sender, MicrosoftuiXaml.WindowActivatedEventArgs args)
-    {
-        if (_SystemBackdropConfiguration is null)
-            return;
-
-        _SystemBackdropConfiguration.IsInputActive = args.WindowActivationState != MicrosoftuiXaml.WindowActivationState.Deactivated;
-    }
-
-    bool LoadTheme()
-    {
-        if (_SystemBackdropConfiguration is null)
+        if (!MicrosoftBackdrops.MicaController.IsSupported())
             return false;
-
-        var application = Application.Current;
-        if (application is null)
-            return false;
-
-        switch (application.RequestedTheme)
-        {
-            case AppTheme.Unspecified:
-                _SystemBackdropConfiguration.Theme = MicrosoftBackdrops.SystemBackdropTheme.Default;
-                break;
-            case AppTheme.Light:
-                _SystemBackdropConfiguration.Theme = MicrosoftBackdrops.SystemBackdropTheme.Light;
-                break;
-            case AppTheme.Dark:
-                _SystemBackdropConfiguration.Theme = MicrosoftBackdrops.SystemBackdropTheme.Dark;
-                break;
-            default:
-                break;
-        }
 
         return true;
     }
 
-    public void Dispose()
+    protected override bool OnDetaching(MicrosoftBackdrops.SystemBackdropConfiguration systemConfiguration)
     {
-        if (_Window is not null)
+        if (_Config is null)
+            return false;
+
+        _AcrylicController = new()
         {
-            _Window.Activated -= Window_Activated;
-            _Window = default;
-        }
+            LuminosityOpacity = _Config.LuminosityOpacity,
+            TintOpacity = _Config.TintOpacity,
+            TintColor = _Config.TintColor.ToPlatformColor(),
+        };
 
-        if (_Config is not null)
-        {
-            _Config.PropertyChanged -= Config_PropertyChanged;
-            _Config = default;
-        }
+        var iCompositionSupportsSystemBackdrop = _Window?.As<MicrosoftuiComposition.ICompositionSupportsSystemBackdrop>();
+        if (iCompositionSupportsSystemBackdrop is null)
+            return false;
+        _AcrylicController.AddSystemBackdropTarget(iCompositionSupportsSystemBackdrop);
+        _AcrylicController.SetSystemBackdropConfiguration(_SystemBackdropConfiguration);
 
-        var application = Application.Current;
-        if (application is not null)
-            application.RequestedThemeChanged -= Application_RequestedThemeChanged;
+        return true;
+    }
 
+    protected override bool PropertyChanged()
+    {
+        if (_AcrylicController is null)
+            return false;
+
+        if (_Config is null)
+            return false;
+
+        _AcrylicController.LuminosityOpacity = _Config.LuminosityOpacity;
+        _AcrylicController.TintOpacity = _Config.TintOpacity;
+        _AcrylicController.TintColor = _Config.TintColor.ToPlatformColor();
+
+        return true;
+    }
+
+    protected override bool Disposing()
+    {
         _AcrylicController?.Dispose();
         _AcrylicController = default;
-
-        _SystemBackdropConfiguration = default;
+        return true;
     }
 }
