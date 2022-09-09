@@ -79,36 +79,36 @@ public static class UIWindowExtensions
     }
 
 
-    public static NSObject? GetHostWindowForUiWidnowEx(this UIWindow window)
-    {
-        if (window is null)
-            return default;
+    //public static NSObject? GetHostWindowForUiWidnowEx(this UIWindow window)
+    //{
+    //    if (window is null)
+    //        return default;
 
-        var nsApplication = Runtime.GetNSObject(Class.GetHandle("NSApplication"));
-        if (nsApplication is null)
-            return default;
+    //    var nsApplication = Runtime.GetNSObject(Class.GetHandle("NSApplication"));
+    //    if (nsApplication is null)
+    //        return default;
 
-        var sharedApplication = nsApplication.PerformSelector(new Selector("sharedApplication"));
-        if (sharedApplication is null)
-            return default;
+    //    var sharedApplication = nsApplication.PerformSelector(new Selector("sharedApplication"));
+    //    if (sharedApplication is null)
+    //        return default;
 
-        var delegeteSelector = new Selector("delegate");
-        if (!sharedApplication.RespondsToSelector(delegeteSelector))
-            return default;
+    //    var delegeteSelector = new Selector("delegate");
+    //    if (!sharedApplication.RespondsToSelector(delegeteSelector))
+    //        return default;
 
-        var delegeteIntptr = RuntimeInterop.IntPtr_objc_msgSend(sharedApplication.Handle, delegeteSelector.Handle);
-        var delegateObject = Runtime.GetNSObject(delegeteIntptr);
+    //    var delegeteIntptr = RuntimeInterop.IntPtr_objc_msgSend(sharedApplication.Handle, delegeteSelector.Handle);
+    //    var delegateObject = Runtime.GetNSObject(delegeteIntptr);
 
-        if (delegateObject is null)
-            return default;
+    //    if (delegateObject is null)
+    //        return default;
 
-        var hostWindowForUIWindowSelector = new Selector("_hostWindowForUIWindow:");
-        if (!delegateObject.RespondsToSelector(hostWindowForUIWindowSelector))
-            return default;
+    //    var hostWindowForUIWindowSelector = new Selector("_hostWindowForUIWindow:");
+    //    if (!delegateObject.RespondsToSelector(hostWindowForUIWindowSelector))
+    //        return default;
 
-        var mainWindow = delegateObject.PerformSelector(hostWindowForUIWindowSelector, window);
+    //    var mainWindow = delegateObject.PerformSelector(hostWindowForUIWindowSelector, window);
 
-        return mainWindow;
-    }
+    //    return mainWindow;
+    //}
 
 }

@@ -60,6 +60,30 @@ internal partial class WindowStartupWorker
 
     partial void PropertyChanged(string name)
     {
-         
+        if (string.IsNullOrWhiteSpace(name))
+            return;
+
+        switch (name)
+        {
+            case nameof(WindowStartup.Width):
+            case nameof(WindowStartup.Height):
+            case nameof(WindowStartup.WindowPresenterKind):
+            case nameof(WindowStartup.WindowAlignment):
+            case nameof(WindowStartup.IsShowFllowMouse):
+                ShowWindow(_WindowStartup.WindowPresenterKind, _WindowStartup.IsShowFllowMouse, _WindowStartup.WindowAlignment, new Size(_WindowStartup.Width, _WindowStartup.Height));
+                break;
+            case nameof(WindowStartup.ShowInSwitcher):
+                ShownInSwitchers(_WindowStartup.ShowInSwitcher);
+                break;
+            case nameof(WindowStartup.BackdropsKind):
+            case nameof(WindowStartup.BackdropConfigurations):
+                SwitchBackdrop(_WindowStartup.BackdropsKind, _WindowStartup.BackdropConfigurations);
+                break;
+            case nameof(WindowStartup.TopMost):
+                ShowInTopMost(_WindowStartup.TopMost);
+                break;
+            default:
+                break;
+        }
     }
 }
