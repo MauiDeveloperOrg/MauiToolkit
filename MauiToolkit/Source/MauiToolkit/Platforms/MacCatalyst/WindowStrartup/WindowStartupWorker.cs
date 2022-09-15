@@ -3,7 +3,7 @@ using MauiToolkit.Interop.Platforms.MacCatalyst.Extensions;
 using MauiToolkit.Interop.Platforms.MacCatalyst.Runtimes.Appkit.Notifications;
 using UIKit;
 
-namespace MauiToolkit.Primitives.WindowStrartup;
+namespace MauiToolkit.Primitives;
 
 internal partial class WindowStartupWorker
 {
@@ -15,7 +15,7 @@ internal partial class WindowStartupWorker
 
     partial void OnAttaching(Window window)
     {
-         
+
     }
 
     partial void OnAttached()
@@ -25,12 +25,12 @@ internal partial class WindowStartupWorker
 
     partial void OnDetaching()
     {
-         
+
     }
 
     partial void OnDetached(Window window)
     {
-         
+
     }
 
     partial void Loaded()
@@ -60,7 +60,7 @@ internal partial class WindowStartupWorker
 
             _IsLoaded = true;
         }
-       
+
         var nsWindow = platformWindow.GetHostWidnowForUiWindow();
         if (nsWindow is null)
             return;
@@ -73,7 +73,7 @@ internal partial class WindowStartupWorker
 
     partial void Destroying()
     {
-        
+
     }
 
     partial void Stopped()

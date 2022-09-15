@@ -53,7 +53,7 @@ public partial class App : Application
             },
 #endif
             Page = MainPage,
-        };
+        }.UseWindowChrome();
 
         return window;
     }

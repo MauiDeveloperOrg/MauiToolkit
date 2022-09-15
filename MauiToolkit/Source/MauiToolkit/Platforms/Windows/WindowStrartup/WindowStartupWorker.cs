@@ -2,7 +2,7 @@
 using MicrosoftuiWindowing = Microsoft.UI.Windowing;
 using MicrosoftuiXaml = Microsoft.UI.Xaml;
 
-namespace MauiToolkit.Primitives.WindowStrartup;
+namespace MauiToolkit.Primitives;
 
 internal partial class WindowStartupWorker
 {

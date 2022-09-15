@@ -1,4 +1,4 @@
-﻿using MauiToolkit.Primitives.WindowStrartup;
+﻿using MauiToolkit.Primitives;
 using MauiToolkit.Providers;
 using MauiToolkit.Service;
 
@@ -27,5 +27,14 @@ public static class WindowStartupExtensions
             return default;
 
         return provider.GetService();
+    }
+
+    public static IWindowStartupService? GetWindowStartupService()
+    {
+        var window = Application.Current?.Windows?.FirstOrDefault();
+        if (window is null)
+            return default;
+
+        return GetWindowStartupService(window);
     }
 }

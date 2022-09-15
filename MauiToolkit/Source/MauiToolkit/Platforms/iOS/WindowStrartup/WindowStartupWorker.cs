@@ -1,4 +1,4 @@
-﻿namespace MauiToolkit.Primitives.WindowStrartup;
+﻿namespace MauiToolkit.Primitives;
 
 internal partial class WindowStartupWorker
 {

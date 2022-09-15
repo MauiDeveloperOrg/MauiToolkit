@@ -1,6 +1,6 @@
 ﻿using MauiToolkit.Configurations;
 using MauiToolkit.Options;
-using MauiToolkit.Primitives.WindowStrartup;
+using MauiToolkit.Primitives;
 using MauiToolkit.Providers;
 using MauiToolkit.Service;
 

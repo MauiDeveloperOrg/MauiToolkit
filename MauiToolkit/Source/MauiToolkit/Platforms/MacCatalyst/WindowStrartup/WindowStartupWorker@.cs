@@ -4,11 +4,10 @@ using MauiToolkit.Configurations;
 using MauiToolkit.Interop.Platforms.MacCatalyst.Helpers;
 using MauiToolkit.Interop.Platforms.MacCatalyst.Runtimes.Appkit;
 using MauiToolkit.Options;
-using System.Reflection.Metadata;
 using System.Runtime.InteropServices;
 using UIKit;
 
-namespace MauiToolkit.Primitives.WindowStrartup;
+namespace MauiToolkit.Primitives;
 
 internal partial class WindowStartupWorker : NSObject
 {

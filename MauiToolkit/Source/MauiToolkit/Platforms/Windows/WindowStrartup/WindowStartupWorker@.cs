@@ -8,7 +8,7 @@ using static PInvoke.User32;
 using MicrosoftuiWindowing = Microsoft.UI.Windowing;
 using WindowsGraphics = Windows.Graphics;
 
-namespace MauiToolkit.Primitives.WindowStrartup;
+namespace MauiToolkit.Primitives;
 
 internal partial class WindowStartupWorker
 {

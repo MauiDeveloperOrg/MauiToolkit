@@ -1,6 +1,6 @@
 ﻿using MauiToolkit.Core.Core;
 
-namespace MauiToolkit.Primitives.WindowStrartup;
+namespace MauiToolkit.Primitives;
 internal partial class WindowStartupWorker : IAttachedObject
 {
     public WindowStartupWorker(WindowStartup windowStartup)
@@ -27,9 +27,9 @@ internal partial class WindowStartupWorker : IAttachedObject
 
         OnAttaching(window);
         _AssociatedObject = window;
+        window.Created += Window_Created;
         window.HandlerChanging += Window_HandlerChanging;
         window.HandlerChanged += Window_HandlerChanged;
-        window.Created += Window_Created;
         window.Deactivated += Window_Deactivated;
         window.Destroying += Window_Destroying;
         window.Stopped += Window_Stopped;
@@ -49,9 +49,9 @@ internal partial class WindowStartupWorker : IAttachedObject
 
         OnDetaching();
         _AssociatedObject = default;
+        window.Created -= Window_Created;
         window.HandlerChanging -= Window_HandlerChanging;
         window.HandlerChanged -= Window_HandlerChanged;
-        window.Created -= Window_Created;
         window.Destroying -= Window_Destroying;
         window.Stopped -= Window_Stopped;
         _WindowStartup.PropertyChanged -= WindowStartup_PropertyChanged;
