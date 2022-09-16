@@ -98,7 +98,22 @@ internal partial class WindowChromeWorker
 
     partial void PropertyChanged(string name)
     {
-        
+        switch (name)
+        {
+            case nameof(WindowChrome.CaptionHeight):
+            case nameof(WindowChrome.TitleFontSize):
+                LoadAppTitleBar(_Windowchrome.CaptionHeight, _Windowchrome.TitleFontSize);
+                break;
+            case nameof(WindowChrome.WindowTitleBarKind):
+                SwitchTitleBar(_Windowchrome.WindowTitleBarKind);
+                break;
+            case nameof(WindowChrome.WindowButtonKind):
+                SetButtonConfigrations(_Windowchrome.WindowButtonKind);
+                break;
+            default:
+                break;
+        }
+
     }
 
     private void AppWindow_Changed(MicrosoftuiWindowing.AppWindow sender, MicrosoftuiWindowing.AppWindowChangedEventArgs args)

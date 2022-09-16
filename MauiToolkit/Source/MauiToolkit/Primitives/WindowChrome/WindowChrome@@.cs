@@ -22,16 +22,19 @@ public partial class WindowChrome : IProvider<IWindowChromeService>, IWindowChro
 
     bool IWindowChromeService.SetButtonKind(WindowButtonKind kind)
     {
-        throw new NotImplementedException();
+        WindowButtonKind = kind;
+        return true;
     }
 
     bool IWindowChromeService.SetCaptionHeight(double height)
     {
-        throw new NotImplementedException();
+        CaptionHeight = height;
+        return true;
     }
 
     bool IWindowChromeService.SwitchTitleBar(WindowTitleBarKind kind)
     {
-        throw new NotImplementedException();
+        WindowTitleBarKind = kind;
+        return true;
     }
 }

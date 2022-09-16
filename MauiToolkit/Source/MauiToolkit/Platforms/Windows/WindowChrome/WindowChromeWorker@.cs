@@ -325,7 +325,8 @@ internal partial class WindowChromeWorker
         if (contentGrid is not MicrosoftuiXaml.FrameworkElement frameworkELement)
             return false;
 
-       
+        
+
         return true;
     }
 }

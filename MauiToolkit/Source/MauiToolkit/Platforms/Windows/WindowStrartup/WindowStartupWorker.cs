@@ -62,9 +62,6 @@ internal partial class WindowStartupWorker
 
     partial void PropertyChanged(string name)
     {
-        if (string.IsNullOrWhiteSpace(name))
-            return;
-
         switch (name)
         {
             case nameof(WindowStartup.Width):
