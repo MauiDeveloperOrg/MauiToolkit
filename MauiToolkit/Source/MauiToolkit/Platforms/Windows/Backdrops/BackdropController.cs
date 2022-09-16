@@ -42,7 +42,7 @@ internal abstract class BackdropController : IDisposable
 
     protected MicrosoftuiXaml.Window? _Window;
     protected BackdropConfigurations? _Config;
-    protected MicrosoftBackdrops.SystemBackdropConfiguration? _SystemBackdropConfiguration;
+    private MicrosoftBackdrops.SystemBackdropConfiguration? _SystemBackdropConfiguration;
 
     public void Dispose()
     {

@@ -15,13 +15,7 @@ internal class WinAcrylicController : BackdropController
 
     MicrosoftBackdrops.DesktopAcrylicController? _AcrylicController;
 
-    protected override bool IsSupported()
-    {
-        if (!MicrosoftBackdrops.MicaController.IsSupported())
-            return false;
-
-        return true;
-    }
+    protected override bool IsSupported() => MicrosoftBackdrops.DesktopAcrylicController.IsSupported();
 
     protected override bool OnDetaching(MicrosoftBackdrops.SystemBackdropConfiguration systemConfiguration)
     {
@@ -39,7 +33,7 @@ internal class WinAcrylicController : BackdropController
         if (iCompositionSupportsSystemBackdrop is null)
             return false;
         _AcrylicController.AddSystemBackdropTarget(iCompositionSupportsSystemBackdrop);
-        _AcrylicController.SetSystemBackdropConfiguration(_SystemBackdropConfiguration);
+        _AcrylicController.SetSystemBackdropConfiguration(systemConfiguration);
 
         return true;
     }

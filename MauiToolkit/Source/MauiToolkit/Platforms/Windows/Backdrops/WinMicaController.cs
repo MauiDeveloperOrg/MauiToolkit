@@ -17,13 +17,7 @@ internal class WinMicaController : BackdropController
 
     MicrosoftBackdrops.MicaController? _MicaController;
 
-    protected override bool IsSupported()
-    {
-        if (!MicrosoftBackdrops.MicaController.IsSupported())
-            return false;
-
-        return true;
-    }
+    protected override bool IsSupported() => MicrosoftBackdrops.MicaController.IsSupported();
 
     protected override bool OnDetaching(MicrosoftBackdrops.SystemBackdropConfiguration systemConfiguration)
     {
@@ -43,7 +37,7 @@ internal class WinMicaController : BackdropController
             return false;
 
         _MicaController.AddSystemBackdropTarget(iCompositionSupportsSystemBackdrop);
-        _MicaController.SetSystemBackdropConfiguration(_SystemBackdropConfiguration);
+        _MicaController.SetSystemBackdropConfiguration(systemConfiguration);
 
         return true;
 

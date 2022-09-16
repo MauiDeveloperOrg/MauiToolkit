@@ -52,12 +52,12 @@ internal partial class WindowStartupWorker
 
     partial void Destroying()
     {
-        
+        OnDetaching();
     }
 
     partial void Stopped()
     {
-        OnDetaching();
+        //OnDetaching();
     }
 
     partial void PropertyChanged(string name)
