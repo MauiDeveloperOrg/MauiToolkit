@@ -27,6 +27,7 @@ public partial class App : Application
             return mainWindow;
         }
 
+        var theme = Application.Current?.RequestedTheme; 
         var window = new ClassicalWindow()
         {
             Width = 800d,
@@ -45,13 +46,14 @@ public partial class App : Application
             },
 #elif WINDOWS
             BackdropsKind = BackdropsKind.Mica,
+
             BackdropConfigurations = new BackdropConfigurations
             {
                 IsHighContrast = false,
                 IsUseBaseKind = true,
-                LuminosityOpacity = 0.95f,
-                TintOpacity = 0.8f,
-                //TintColor = Colors.Transparent, 
+                LuminosityOpacity = theme == AppTheme.Dark ? 0.5f : 0.95f,
+                TintOpacity = theme == AppTheme.Dark ? 0.3f : 0.8f,
+                TintColor = theme == AppTheme.Dark ? Colors.Black : Colors.Transparent, 
             },
 #endif
             Page = MainPage,

@@ -61,7 +61,7 @@ internal partial class WindowStartupWorker
 
     bool ShowWindow(WindowPresenterKind kind, bool isFllowMouse, WindowAlignment alignment, Size size)
     {
-        MoveWindow(isFllowMouse, alignment, size);
+        MoveWindow(kind, isFllowMouse, alignment, size);
         ShowPresenter(kind);
         return true;
     }
@@ -88,7 +88,7 @@ internal partial class WindowStartupWorker
         return true;
     }
 
-    bool MoveWindow(bool isFllowMouse, WindowAlignment alignment, Size size)
+    bool MoveWindow(WindowPresenterKind kind, bool isFllowMouse, WindowAlignment alignment, Size size)
     {
         if (_Window is null)
             return false;
@@ -98,7 +98,7 @@ internal partial class WindowStartupWorker
 
         var displyArea = MicrosoftuiWindowing.DisplayArea.Primary;
         //获取焦点屏幕 根据鼠标获取当前激活的屏幕
-        if (isFllowMouse)
+        if (kind is not WindowPresenterKind.FullScreen && isFllowMouse)
         {
             var vPoint = GetCursorPos();
             var vInt32Point = new WindowsGraphics.PointInt32(vPoint.x, vPoint.y);
@@ -140,7 +140,7 @@ internal partial class WindowStartupWorker
             default:
                 break;
         }
-
+    
         _AppWindow.MoveAndResize(new((int)startX, (int)startY, (int)width, (int)height), displyArea);
         return true;
     }
@@ -186,7 +186,6 @@ internal partial class WindowStartupWorker
                 if (windowChrome.WindowTitleBarKind is WindowTitleBarKind.Default or WindowTitleBarKind.DefaultWithExtension)
                     _Window.ExtendsContentIntoTitleBar = false;
             }
-
 
             if (_AppWindow.Presenter.Kind is not MicrosoftuiWindowing.AppWindowPresenterKind.FullScreen)
                 _AppWindow.SetPresenter(MicrosoftuiWindowing.AppWindowPresenterKind.FullScreen);

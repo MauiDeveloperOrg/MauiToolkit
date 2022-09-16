@@ -165,6 +165,9 @@ internal partial class WindowChromeWorker
 
     bool SwitchTitleBar(WindowTitleBarKind kind)
     {
+        if (_AssociatedObject is null)
+            return false;
+
         if (_Window is null)
             return false;
 
@@ -227,8 +230,15 @@ internal partial class WindowChromeWorker
 
                 break;
             default:
-                _Window.ExtendsContentIntoTitleBar = true;
-                frameworkElement.Visibility = MicrosoftuiXaml.Visibility.Visible;
+                {
+                    var windowStartup = WindowStartup.GetWindowStartup(_AssociatedObject);
+                    var presentKind = windowStartup?.WindowPresenterKind;
+                    if (presentKind is not WindowPresenterKind.FullScreen && _AppWindow.Presenter.Kind is not MicrosoftuiWindowing.AppWindowPresenterKind.FullScreen)  
+                        _Window.ExtendsContentIntoTitleBar = true;
+
+                    frameworkElement.Visibility = MicrosoftuiXaml.Visibility.Visible;
+                }
+               
                 break;
         }
 
@@ -241,15 +251,22 @@ internal partial class WindowChromeWorker
         if (_AppWindow is null)
             return false;
 
+        if (_AppWindow.Presenter.Kind is MicrosoftuiWindowing.AppWindowPresenterKind.FullScreen)
+            return true;
+
         switch (kind)
         {
             case WindowButtonKind.Hide:
-                var customOverlappedPresenter = MicrosoftuiWindowing.OverlappedPresenter.CreateForContextMenu();
-                _AppWindow.SetPresenter(customOverlappedPresenter);
+                {
+                    var customOverlappedPresenter = MicrosoftuiWindowing.OverlappedPresenter.CreateForContextMenu();
+                    _AppWindow.SetPresenter(customOverlappedPresenter);
+                }
                 break;
             case WindowButtonKind.Show:
-                var mainOverlappedPresenter = MicrosoftuiWindowing.OverlappedPresenter.Create();
-                _AppWindow.SetPresenter(mainOverlappedPresenter);
+                {
+                    var mainOverlappedPresenter = MicrosoftuiWindowing.OverlappedPresenter.Create();
+                    _AppWindow.SetPresenter(mainOverlappedPresenter);
+                }   
                 break;
             default:
                 {
