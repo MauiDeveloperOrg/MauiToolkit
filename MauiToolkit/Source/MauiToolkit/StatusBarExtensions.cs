@@ -1,5 +1,7 @@
 ﻿using MauiToolkit.Configurations;
 using MauiToolkit.Core.Shared;
+using MauiToolkit.Service;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace MauiToolkit;
 public static class StatusBarExtensions
@@ -17,6 +19,8 @@ public static class StatusBarExtensions
             ToolTipText = appName,
         };
         configureDelegate?.Invoke(options);
+        var statusBar = new StatusBar(options);
+        builder.Services.AddSingleton<IStatusBarService>(statusBar);
 
         return builder;
     }

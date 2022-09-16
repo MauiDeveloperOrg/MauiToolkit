@@ -1,6 +1,7 @@
 ﻿using MauiToolkit.Options;
 
 namespace MauiToolkit.Service;
+
 public interface IWindowChromeService
 {
     bool SetCaptionHeight(double height);
