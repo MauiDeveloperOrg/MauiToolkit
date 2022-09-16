@@ -25,7 +25,11 @@ internal partial class WindowStartupWorker
 
     partial void OnDetaching()
     {
-
+        _NSApplicationDidFinishRestoring?.Dispose();
+        _NSApplicationDidFinishRestoring = default;
+        _NsWindow = default;
+        _Window = default;
+        _IsLoaded = false;
     }
 
     partial void OnDetached(Window window)
@@ -56,6 +60,9 @@ internal partial class WindowStartupWorker
                     return;
 
                 _NsWindow = nsWindow;
+
+                LoadBackgroundMaterial(_WindowStartup.BackdropsKind, _WindowStartup.BackdropConfigurations);
+                MoveWindow(_WindowStartup.WindowPresenterKind);
             });
 
             _IsLoaded = true;
@@ -78,10 +85,7 @@ internal partial class WindowStartupWorker
 
     partial void Stopped()
     {
-        _NSApplicationDidFinishRestoring?.Dispose();
-        _NsWindow = default;
-        _Window = default;
-        _IsLoaded = false;
+        OnDetaching();
     }
 
     partial void PropertyChanged(string name)

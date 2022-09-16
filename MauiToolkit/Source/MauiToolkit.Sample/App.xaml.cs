@@ -1,5 +1,7 @@
 ﻿using MauiToolkit.Configurations;
 using MauiToolkit.Controls;
+using MauiToolkit.Core.Builders;
+using MauiToolkit.Core.Extensions;
 using MauiToolkit.Core.Shared;
 using MauiToolkit.Options;
 
@@ -31,7 +33,7 @@ public partial class App : Application
             Height = 600d,
             IsShowFllowMouse = true,
             Title = PlatformShared.GetApplicationName(),
-            WindowPresenterKind = WindowPresenterKind.FullScreen,
+            WindowPresenterKind = WindowPresenterKind.Default,
 #if MACCATALYST
             BackdropsKind = BackdropsKind.BlurEffect,
             BackdropConfigurations = new BackdropConfigurations
@@ -53,7 +55,27 @@ public partial class App : Application
             },
 #endif
             Page = MainPage,
-        }.UseWindowChrome();
+        }.UseWindowChrome(options => 
+        {
+#if WINDOWS
+
+            options.Icon = FilepathBuilder.Make()
+                                          .AddArgument("Resources")
+                                          .AddArgument("AppIcon")
+                                          .AddArgument("application128.ico")
+                                          .Build();
+
+#elif MACCATALYST
+
+                options.Icon = FilepathBuilder.Make()
+                                              .AddArgument("Resources")
+                                              .AddArgument("app.png")
+                                              .Build();
+#endif
+            options.CaptionHeight = 40;
+            options.CaptionActiveBackgroundColor = Colors.Transparent;
+            options.WindowTitleBarKind = WindowTitleBarKind.Default;
+        });
 
         return window;
     }

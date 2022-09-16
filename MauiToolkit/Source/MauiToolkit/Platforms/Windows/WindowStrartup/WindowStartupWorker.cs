@@ -22,12 +22,15 @@ internal partial class WindowStartupWorker
 
     partial void OnDetaching()
     {
-         
+        _Backdrop?.Dispose();
+        _Backdrop = default;
+        _Window = default;
+        _AppWindow = default;
     }
 
     partial void OnDetached(Window window)
     {
-         
+        
     }
 
     partial void Loaded()
@@ -54,8 +57,7 @@ internal partial class WindowStartupWorker
 
     partial void Stopped()
     {
-        _Backdrop?.Dispose();
-        _Backdrop = default;
+        OnDetaching();
     }
 
     partial void PropertyChanged(string name)

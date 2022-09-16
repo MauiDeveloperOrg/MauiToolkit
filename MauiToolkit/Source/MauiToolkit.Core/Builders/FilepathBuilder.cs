@@ -9,7 +9,7 @@ public class FilepathBuilder
     string? _Header;
     List<string> _FilePathNodes = new();
 
-    public bool SetBasicDirectory(string? directory = default)
+    private bool SetBasicDirectory(string? directory = default)
     {
         if (string.IsNullOrWhiteSpace(directory))
         {
