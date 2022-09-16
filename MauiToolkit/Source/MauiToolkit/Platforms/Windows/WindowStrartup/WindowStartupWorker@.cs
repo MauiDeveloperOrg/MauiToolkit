@@ -175,34 +175,36 @@ internal partial class WindowStartupWorker
         if (_AppWindow is null)
             return false;
 
-        //var windowChrome = WindowChrome.GetWindowChrome(_Window);
+        if (_AssociatedObject is null)
+            return false;
 
-        //if (bFullScreen)
-        //{
-        //    if (windowChrome is not null)
-        //    {
-        //        if (windowChrome.WindowTitleBarKind is WindowTitleBarKind.Default or WindowTitleBarKind.DefaultWithExtension)
-        //            _Window.ExtendsContentIntoTitleBar = false;
-        //    }
+        var windowChrome = WindowChrome.GetWindowChrome(_AssociatedObject);
+        if (bFullScreen)
+        {
+            if (windowChrome is not null)
+            {
+                if (windowChrome.WindowTitleBarKind is WindowTitleBarKind.Default or WindowTitleBarKind.DefaultWithExtension)
+                    _Window.ExtendsContentIntoTitleBar = false;
+            }
 
 
-        //    if (_AppWindow.Presenter.Kind is not MicrosoftuiWindowing.AppWindowPresenterKind.FullScreen)
-        //        _AppWindow.SetPresenter(MicrosoftuiWindowing.AppWindowPresenterKind.FullScreen);
-        //}
-        //else
-        //{
-        //    if (windowChrome is not null)
-        //    {
-        //        if (windowChrome.WindowTitleBarKind is WindowTitleBarKind.Default or WindowTitleBarKind.DefaultWithExtension)
-        //            _Window.ExtendsContentIntoTitleBar = true;
-        //    }
+            if (_AppWindow.Presenter.Kind is not MicrosoftuiWindowing.AppWindowPresenterKind.FullScreen)
+                _AppWindow.SetPresenter(MicrosoftuiWindowing.AppWindowPresenterKind.FullScreen);
+        }
+        else
+        {
+            if (windowChrome is not null)
+            {
+                if (windowChrome.WindowTitleBarKind is WindowTitleBarKind.Default or WindowTitleBarKind.DefaultWithExtension)
+                    _Window.ExtendsContentIntoTitleBar = true;
+            }
 
-        //    if (_AppWindow.Presenter.Kind is MicrosoftuiWindowing.AppWindowPresenterKind.FullScreen)
-        //    {
-        //        var customOverlappedPresenter = MicrosoftuiWindowing.OverlappedPresenter.CreateForContextMenu();
-        //        _AppWindow.SetPresenter(customOverlappedPresenter);
-        //    }
-        //}
+            if (_AppWindow.Presenter.Kind is MicrosoftuiWindowing.AppWindowPresenterKind.FullScreen)
+            {
+                var customOverlappedPresenter = MicrosoftuiWindowing.OverlappedPresenter.CreateForContextMenu();
+                _AppWindow.SetPresenter(customOverlappedPresenter);
+            }
+        }
 
         return true;
     }

@@ -1,4 +1,5 @@
-﻿using MauiToolkit.Primitives;
+﻿using MauiToolkit.Options;
+using MauiToolkit.Primitives;
 using MauiToolkit.Providers;
 using MauiToolkit.Service;
 
@@ -17,5 +18,20 @@ public partial class WindowChrome : IProvider<IWindowChromeService>, IWindowChro
             return tValue;
 
         return default;
+    }
+
+    bool IWindowChromeService.SetButtonKind(WindowButtonKind kind)
+    {
+        throw new NotImplementedException();
+    }
+
+    bool IWindowChromeService.SetCaptionHeight(double height)
+    {
+        throw new NotImplementedException();
+    }
+
+    bool IWindowChromeService.SwitchTitleBar(WindowTitleBarKind kind)
+    {
+        throw new NotImplementedException();
     }
 }

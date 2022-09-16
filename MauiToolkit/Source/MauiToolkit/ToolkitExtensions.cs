@@ -19,11 +19,4 @@ public static class ToolkitxExtensions
         return builder;
     }
 
-
-    //public static MauiAppBuilder UseMauiToolkit(this MauiAppBuilder builder, Action<WindowChrome>? configureDelegate)
-    //{
-    //    return builder;
-    //}
-
-
 }

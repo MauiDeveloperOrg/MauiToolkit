@@ -17,10 +17,5 @@ public class StatusBarConfigurations
     /// <summary>
     /// the icon path 
     /// </summary>
-    public string? Icon1 { get; set; }
-
-    /// <summary>
-    /// when start blink it will use icon2
-    /// </summary>
-    public string? Icon2 { get; set; }
+    public string? Icon { get; set; }
 }

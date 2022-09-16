@@ -7,6 +7,7 @@ public enum BackdropsKind
     /// </summary>
     Default,
 
+//#if WINDOWS
     /// <summary>
     /// Only for winui3
     /// </summary>
@@ -17,8 +18,13 @@ public enum BackdropsKind
     /// </summary>
     Acrylic,
 
+//#endif
+
+//#if MACCATALYST || IOS || ANDROID
     /// <summary>
     /// For mac os and ios
     /// </summary>
     BlurEffect
+
+//#endif
 }

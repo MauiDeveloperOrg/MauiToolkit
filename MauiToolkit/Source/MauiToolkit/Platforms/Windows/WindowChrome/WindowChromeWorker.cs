@@ -98,7 +98,7 @@ internal partial class WindowChromeWorker
 
     partial void PropertyChanged(string name)
     {
-
+        
     }
 
     private void AppWindow_Changed(MicrosoftuiWindowing.AppWindow sender, MicrosoftuiWindowing.AppWindowChangedEventArgs args)
