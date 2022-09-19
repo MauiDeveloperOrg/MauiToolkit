@@ -1,8 +1,8 @@
 ﻿using MauiToolkit.Configurations;
 using MauiToolkit.Service;
 
-namespace MauiToolkit;
-internal partial class StatusBar : IStatusBarService
+namespace MauiToolkit.Primitives;
+internal partial class StatusBarWorker : IStatusBarService
 {
     public IDisposable Blink(TimeSpan time, Func<bool, string> callBack)
     {

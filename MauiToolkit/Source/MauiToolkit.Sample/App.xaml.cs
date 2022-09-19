@@ -51,8 +51,8 @@ public partial class App : Application
             {
                 IsHighContrast = false,
                 IsUseBaseKind = true,
-                LuminosityOpacity = theme == AppTheme.Dark ? 0.5f : 0.95f,
-                TintOpacity = theme == AppTheme.Dark ? 0.3f : 0.8f,
+                LuminosityOpacity = theme == AppTheme.Dark ? 0.5f : 0.9f,
+                TintOpacity = theme == AppTheme.Dark ? 0.3f : 0.75f,
                 TintColor = theme == AppTheme.Dark ? Colors.Black : Colors.Transparent, 
             },
 #endif

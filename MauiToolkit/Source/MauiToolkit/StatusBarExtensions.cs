@@ -1,7 +1,9 @@
 ﻿using MauiToolkit.Configurations;
+using MauiToolkit.Core;
 using MauiToolkit.Core.Shared;
+using MauiToolkit.Primitives;
 using MauiToolkit.Service;
-using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Maui.LifecycleEvents;
 
 namespace MauiToolkit;
 public static class StatusBarExtensions
@@ -19,8 +21,9 @@ public static class StatusBarExtensions
             ToolTipText = appName,
         };
         configureDelegate?.Invoke(options);
-        var statusBar = new StatusBar(options);
+        var statusBar = new StatusBarWorker(options);
         builder.Services.AddSingleton<IStatusBarService>(statusBar);
+        builder.ConfigureLifecycleEvents(lefecycle => statusBar.RegisterApplicationLifeCycle(lefecycle));
 
         return builder;
     }

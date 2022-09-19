@@ -18,4 +18,7 @@ public class StatusBarConfigurations
     /// the icon path 
     /// </summary>
     public string? Icon { get; set; }
+
+    
+
 }
