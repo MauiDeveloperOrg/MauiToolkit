@@ -1,26 +1,32 @@
-﻿using MauiToolkit.Configurations;
+﻿using MauiToolkit.Core.Disposables;
 using MauiToolkit.Service;
 
 namespace MauiToolkit.Primitives;
 internal partial class StatusBarWorker : IStatusBarService
 {
+    public IList<MenuItem> MenuItems => _Configurations.MenuItems;
+
     public IDisposable Blink(TimeSpan time, Func<bool, string> callBack)
     {
         throw new NotImplementedException();
     }
 
-    public bool Close()
+    bool IStatusBarService.SetDescription(string text)
     {
         throw new NotImplementedException();
     }
 
-    public bool SetDescription(string text)
+    bool IStatusBarService.SwitchIcon(string icon)
     {
         throw new NotImplementedException();
     }
 
-    public bool SwitchIcon(string icon)
+    bool ICloseable.Close()
     {
-        throw new NotImplementedException();
+        ((IDisposable)this).Dispose();
+        return true;
     }
+
+    void IDisposable.Dispose() => OnDisposing();
+
 }

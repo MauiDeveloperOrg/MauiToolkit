@@ -15,7 +15,7 @@ public enum NOTIFYICONDATAWFlags
 
 public enum NOTIFYMESSAGESINK
 {
-    NotifyCallBackMessage = PInvoke.User32.WindowMessage.WM_USER + 6,
+    NotifyCallBackMessage = PInvoke.User32.WindowMessage.WM_USER + 1024,
 }
 
 public enum NOTIFYICONVERSIONFlags

@@ -34,4 +34,11 @@ public static partial class RuntimeInterop
     [return: MarshalAs(UnmanagedType.Bool)]
     public static extern bool DestroyMenu(IntPtr hmenu);
 
+    [DllImport(_User32)]
+    [return: MarshalAs(UnmanagedType.Bool)]
+    public static extern bool RemoveMenu(IntPtr hMenu, uint uPosition, MenuItemFlags uFlags);
+
+    [DllImport(_User32)]
+    [return: MarshalAs(UnmanagedType.Bool)]
+    public  static extern bool DrawMenuBar(IntPtr hWnd);
 }

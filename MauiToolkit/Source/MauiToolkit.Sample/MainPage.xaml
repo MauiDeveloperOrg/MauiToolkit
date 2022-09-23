@@ -4,6 +4,12 @@
              xmlns:toolkit="http://www.mauitoolkit.com"
              x:Class="MauiToolkit.Sample.MainPage"
              BackgroundColor="Transparent">
+    <ContentPage.ToolbarItems>
+        
+    </ContentPage.ToolbarItems>
+    <ContentPage.MenuBarItems>
+ 
+    </ContentPage.MenuBarItems>
 
     <ScrollView BackgroundColor="Transparent">
         <Grid

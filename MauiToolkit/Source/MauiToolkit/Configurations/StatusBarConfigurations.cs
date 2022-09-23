@@ -1,7 +1,14 @@
-﻿namespace MauiToolkit.Configurations;
+﻿using System.Collections.ObjectModel;
+
+namespace MauiToolkit.Configurations;
 
 public class StatusBarConfigurations
 {
+    public StatusBarConfigurations()
+    {
+        MenuItems = new ObservableCollection<MenuItem>();
+    }
+
     /// <summary>
     /// show title default it is the app name
     /// the tookit default value is  AppName
@@ -19,6 +26,6 @@ public class StatusBarConfigurations
     /// </summary>
     public string? Icon { get; set; }
 
-    
+    public IList<MenuItem> MenuItems { get; }
 
 }
