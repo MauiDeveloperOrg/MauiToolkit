@@ -1,7 +1,7 @@
-﻿using MauiToolkit.Interop;
+﻿using MauiToolkit.Assists;
+using MauiToolkit.Interop;
 using MauiToolkit.Interop.Platforms.Windows.Runtimes.Shell32;
 using MauiToolkit.Interop.Platforms.Windows.Runtimes.User32;
-using Microsoft.Maui.Handlers;
 using Microsoft.Maui.LifecycleEvents;
 using Microsoft.Maui.Platform;
 using System.Collections.Specialized;
@@ -10,6 +10,13 @@ using static PInvoke.User32;
 using MicrosoftuiXaml = Microsoft.UI.Xaml;
 
 namespace MauiToolkit.Primitives;
+
+internal struct MenuItemTag
+{
+    public int Uid { get; set; }
+    public int Index { get; set; }
+}
+
 internal partial class StatusBarWorker
 {
     readonly uint _WmStatusBarMouseMessage = (uint)NOTIFYMESSAGESINK.NotifyCallBackMessage;
@@ -49,7 +56,7 @@ internal partial class StatusBarWorker
         });
     }
 
-    
+
     unsafe bool RegisterWndClass()
     {
         _WndProc = WindowProcMessage;
@@ -136,9 +143,13 @@ internal partial class StatusBarWorker
         int nIndex = 0;
         foreach (var item in _Configurations.MenuItems)
         {
-            int uid = nCount + (++nIndex);
+            int uid = nCount + (nIndex + 1);
+            int index = nCount + nIndex;
             AppendMenu(m_hMenu, MenuItemFlags.MF_STRING, new IntPtr(uid), item.Text);
+            var tag = new MenuItemTag { Index = index, Uid = uid};
+            ElementAssist.SetTag(item, tag);
             _mapMenuItems[uid] = item;
+            nIndex++;
         }
 
         return true;
@@ -199,7 +210,65 @@ internal partial class StatusBarWorker
 
     partial void MenuItemsChanged(NotifyCollectionChangedEventArgs arg)
     {
+        if (arg is null)
+            return;
 
+        var newItems = arg.NewItems;
+        if (newItems is null)
+            return;
+
+        switch (arg.Action)
+        {
+            case NotifyCollectionChangedAction.Add:
+                {
+                    int nCount = GetMenuItemCount(m_hMenu);
+                    int nIndex = 0;
+                    foreach (var item in newItems)
+                    {
+                        if (item is not MenuItem menuItem)
+                            continue;
+
+                        var tag = ElementAssist.GetTag(menuItem);
+                        if (tag is MenuItemTag itemTag)
+                            continue;
+
+                        int uid = nCount + (nIndex + 1);
+                        int index = nCount + nIndex;
+                        AppendMenu(m_hMenu, MenuItemFlags.MF_STRING, new IntPtr(uid), menuItem.Text);
+                        var newTag = new MenuItemTag { Index = index, Uid = uid };
+                        ElementAssist.SetTag(menuItem, newTag);
+                        _mapMenuItems[uid] = menuItem;
+                        nIndex++;
+                    }
+                }
+                break;
+            case NotifyCollectionChangedAction.Remove:
+                {
+                    if (m_hMenu == IntPtr.Zero)
+                        break;
+
+                    foreach (var item in newItems)
+                    {
+                        if (item is not MenuItem menuItem)
+                            continue;
+
+                        var tag = ElementAssist.GetTag(menuItem);
+                        if (tag is not MenuItemTag itemTag)
+                            continue;
+
+                        RuntimeInterop.RemoveMenu(m_hMenu, (uint)(itemTag.Index + 1), MenuItemFlags.MF_BYPOSITION | MenuItemFlags.MF_REMOVE);
+                    }
+                }
+                break;
+            case NotifyCollectionChangedAction.Replace:
+                break;
+            case NotifyCollectionChangedAction.Move:
+                break;
+            case NotifyCollectionChangedAction.Reset:
+                break;
+            default:
+                break;
+        }
     }
 
     partial void OnDisposing()

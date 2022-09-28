@@ -1,7 +1,4 @@
-﻿using MauiToolkit.Core.Core;
-using MauiToolkit.Core.Helpers;
-
-namespace MauiToolkit.Compositions;
+﻿namespace MauiToolkit.Compositions;
 
 public partial class MauiEffect
 {
