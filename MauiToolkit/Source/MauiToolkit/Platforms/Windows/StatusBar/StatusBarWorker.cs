@@ -114,14 +114,9 @@ internal partial class StatusBarWorker
         }
         else if (msg == WindowMessage.WM_COMMAND)
         {
-            switch ((int)wparam)
-            {
-                case 1:
-                    break;
-
-                default:
-                    break;
-            }
+            int key = (int)wparam;
+            _mapMenuItems.TryGetValue(key, out var menuItem);
+            menuItem?.Command?.Execute(menuItem?.CommandParameter);
         }
         else
         {
