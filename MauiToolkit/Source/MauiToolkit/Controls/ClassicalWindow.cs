@@ -159,7 +159,7 @@ public class ClassicalWindow : Window
 
     protected override void OnPropertyChanging([CallerMemberName] string? propertyName = default)
     {
-        base.OnPropertyChanging(propertyName);
+        //base.OnPropertyChanging(propertyName);
     }
 
     protected override void OnPropertyChanged([CallerMemberName] string? propertyName = null)

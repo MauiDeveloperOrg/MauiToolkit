@@ -1,4 +1,6 @@
-﻿namespace MauiToolkit.Interop.Platforms.Windows.Runtimes.Shell32;
+﻿using static PInvoke.User32;
+
+namespace MauiToolkit.Interop.Platforms.Windows.Runtimes.Shell32;
 
 public enum TimeOutFlags
 {
@@ -15,7 +17,7 @@ public enum NOTIFYICONDATAWFlags
 
 public enum NOTIFYMESSAGESINK
 {
-    NotifyCallBackMessage = PInvoke.User32.WindowMessage.WM_USER + 1024,
+    NotifyCallBackMessage = WindowMessage.WM_USER + 1024,
 }
 
 public enum NOTIFYICONVERSIONFlags

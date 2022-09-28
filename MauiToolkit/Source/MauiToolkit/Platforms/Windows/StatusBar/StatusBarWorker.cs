@@ -1,16 +1,21 @@
 ﻿using MauiToolkit.Interop;
 using MauiToolkit.Interop.Platforms.Windows.Runtimes.Shell32;
 using MauiToolkit.Interop.Platforms.Windows.Runtimes.User32;
+using Microsoft.Maui.Handlers;
 using Microsoft.Maui.LifecycleEvents;
+using Microsoft.Maui.Platform;
 using System.Collections.Specialized;
 using System.Runtime.InteropServices;
 using static PInvoke.User32;
+using MicrosoftuiXaml = Microsoft.UI.Xaml;
 
 namespace MauiToolkit.Primitives;
 internal partial class StatusBarWorker
 {
     readonly uint _WmStatusBarMouseMessage = (uint)NOTIFYMESSAGESINK.NotifyCallBackMessage;
     readonly string _StatusBarCreatedMessage = "StatusBarCreatedMessage";
+
+    WndProc? _WndProc;
     int _WmStatusBarCreated;
     string? _StatusBarWindowClassName;
     IntPtr _StatusBarWindowHandle;
@@ -18,6 +23,9 @@ internal partial class StatusBarWorker
     IntPtr m_hMenu = IntPtr.Zero;
 
     NOTIFYICONDATA _NotifyIconData;
+    bool _IsShowIn = false;
+
+    bool _IsLoadedIn = false;
     IntPtr _hIcon = IntPtr.Zero;
 
     Dictionary<int, MenuItem> _mapMenuItems = new Dictionary<int, MenuItem>();
@@ -29,33 +37,27 @@ internal partial class StatusBarWorker
             windowLeftCycle.OnLaunching((app, arg) =>
             {
                 RegisterWndClass();
-
-
+                CreateNotifyIconData();
+                CreateMenus();
+                ShowStatusBar();
             }).OnClosed((window, arg) =>
             {
                 var windows = Application.Current?.Windows;
-                if (windows != null)
-                {
-
-                }
-
-                OnDisposing();
+                if (windows is null || windows.Count <= 1)
+                    OnDisposing();
             });
         });
     }
 
-    partial void MenuItemsChanged(NotifyCollectionChangedEventArgs arg)
-    {
-
-    }
-
+    
     unsafe bool RegisterWndClass()
     {
+        _WndProc = WindowProcMessage;
         _StatusBarWindowClassName = $"StatusBar_Silent_{Guid.NewGuid()}";
         var wndclass = new WNDCLASS
         {
             style = 0,
-            lpfnWndProc = WindowProcMessage,
+            lpfnWndProc = _WndProc,
             cbClsExtra = 0,
             cbWndExtra = 0,
             hInstance = IntPtr.Zero,
@@ -87,7 +89,14 @@ internal partial class StatusBarWorker
                     break;
                 case WindowMessage.WM_LBUTTONDBLCLK:
                     {
+                        var mainWindow = Application.Current?.Windows.FirstOrDefault();
+                        if (mainWindow?.Handler?.PlatformView is not MicrosoftuiXaml.Window platformWindow)
+                            break;
 
+                        var windowHandle = platformWindow.GetWindowHandle();
+                        var isWindowIconic = IsIconic(windowHandle);
+                        if (isWindowIconic)
+                            PostMessage(windowHandle, WindowMessage.WM_SYSCOMMAND, new IntPtr((int)SysCommands.SC_RESTORE), IntPtr.Zero);
                     }
                     break;
                 case WindowMessage.WM_RBUTTONDOWN:
@@ -143,7 +152,7 @@ internal partial class StatusBarWorker
     bool CreateNotifyIconData()
     {
         IntPtr hIcon = IntPtr.Zero;
-        _NotifyIconData = NOTIFYICONDATA.GetDefaultNotifyData(_StatusBarWindowHandle);
+        var notifyIconData = NOTIFYICONDATA.GetDefaultNotifyData(_StatusBarWindowHandle);
         if (string.IsNullOrWhiteSpace(_Configurations.Icon))
         {
             var processPath = Environment.ProcessPath;
@@ -151,30 +160,58 @@ internal partial class StatusBarWorker
             {
                 var index = IntPtr.Zero;
                 hIcon = RuntimeInterop.ExtractAssociatedIcon(IntPtr.Zero, processPath, ref index);
-                _NotifyIconData.hIcon = hIcon;
-                _NotifyIconData.hBalloonIcon = hIcon;
+                notifyIconData.hIcon = hIcon;
+                notifyIconData.hBalloonIcon = hIcon;
             }
         }
         else
         {
             hIcon = LoadImage(IntPtr.Zero, _Configurations.Icon, ImageType.IMAGE_ICON, 32, 32, LoadImageFlags.LR_LOADFROMFILE);
-            _NotifyIconData.hIcon = hIcon;
-            _NotifyIconData.hBalloonIcon = hIcon;
+            notifyIconData.hIcon = hIcon;
+            notifyIconData.hBalloonIcon = hIcon;
+            _IsLoadedIn = true;
         }
 
         _hIcon = hIcon;
 
         if (!string.IsNullOrWhiteSpace(_Configurations.Title))
-            _NotifyIconData.szTip = _Configurations.Title;
+            notifyIconData.szTip = _Configurations.Title;
+
+        _NotifyIconData = notifyIconData;
 
         return true;
     }
 
-    
+    bool ShowStatusBar()
+    {
+        if (Volatile.Read(ref _IsShowIn))
+            return true;
+
+        RuntimeInterop.Shell_NotifyIcon(NotifyCommand.NIM_Add, ref _NotifyIconData);
+        Volatile.Write(ref _IsShowIn, true);
+        return true;
+    }
+
+    bool RemoveStatusBar()
+    {
+        if (!Volatile.Read(ref _IsShowIn))
+            return true;
+
+        RuntimeInterop.Shell_NotifyIcon(NotifyCommand.NIM_Delete, ref _NotifyIconData);
+        Volatile.Write(ref _IsShowIn, false);
+        return true;
+    }
+
+    partial void MenuItemsChanged(NotifyCollectionChangedEventArgs arg)
+    {
+
+    }
 
     partial void OnDisposing()
     {
-
+        UnregisterClass(_StatusBarWindowClassName, 0);
+        RemoveStatusBar();
+        DestroyWindow(_StatusBarWindowHandle);
     }
 
 }

@@ -1,9 +1,7 @@
 ﻿using MauiToolkit.Core.Extensions;
 using MauiToolkit.Core.Platforms.Windows.Extensions;
 using MauiToolkit.Options;
-using Microsoft.Maui.Controls.Platform;
 using Microsoft.Maui.Platform;
-using System.Reflection;
 using MicrosoftuiWindowing = Microsoft.UI.Windowing;
 using MicrosoftuiXaml = Microsoft.UI.Xaml;
 

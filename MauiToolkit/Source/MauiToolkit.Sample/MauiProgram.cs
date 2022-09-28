@@ -7,7 +7,12 @@ public static class MauiProgram
         var builder = MauiApp.CreateBuilder();
         builder
             .UseMauiApp<App>()
-            .UseMauiToolkit()
+            .UseMauiToolkit(options => 
+            {
+                options.MenuItems.Add(new MenuItem() { Text = "123323" });
+                options.MenuItems.Add(new MenuItem() { Text = "456" });
+                options.MenuItems.Add(new MenuItem() { Text = "789" });
+            })
             .ConfigureFonts(fonts =>
             {
                 fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
