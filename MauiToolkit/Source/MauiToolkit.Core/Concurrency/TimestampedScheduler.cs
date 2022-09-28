@@ -1,7 +1,7 @@
 ﻿using MauiToolkit.Core.Disposables;
 
 namespace MauiToolkit.Core.Concurrency;
-internal class TimestampedScheduler : ICancelable, IScheduler
+internal class TimestampedScheduler: ICancelable, IScheduler
 {
     public TimestampedScheduler()
     {
@@ -14,9 +14,11 @@ internal class TimestampedScheduler : ICancelable, IScheduler
     }
 
     private bool disposedValue;
+
+    //private Action<IScheduler, TState, IDisposable> 
     bool ICancelable.IsDisposed => disposedValue;
 
-    DateTimeOffset IScheduler.Now => throw new NotImplementedException();
+    DateTimeOffset IScheduler.Now => DateTimeOffset.Now;
 
     protected virtual void Dispose(bool disposing)
     {
