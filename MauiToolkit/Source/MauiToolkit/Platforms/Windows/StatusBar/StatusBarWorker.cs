@@ -273,7 +273,12 @@ internal partial class StatusBarWorker
 
     partial void OnDisposing()
     {
+#if NET6_0 
+        UnregisterClass(_StatusBarWindowClassName, new IntPtr(0));
+#elif NET7_0
         UnregisterClass(_StatusBarWindowClassName, 0);
+#endif
+
         RemoveStatusBar();
         DestroyWindow(_StatusBarWindowHandle);
     }
