@@ -76,7 +76,8 @@ public partial class App : Application
 #endif
             options.CaptionHeight = 40;
             options.CaptionActiveBackgroundColor = Colors.Transparent;
-            options.WindowTitleBarKind = WindowTitleBarKind.Default;
+            options.WindowTitleBarKind = WindowTitleBarKind.CustomTitleBarAndExtension;
+            options.WindowButtonKind = WindowButtonKind.Hide;
         });
 
         return window;
