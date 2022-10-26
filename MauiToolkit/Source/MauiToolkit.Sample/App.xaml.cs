@@ -34,7 +34,7 @@ public partial class App : Application
             Height = 600d,
             IsShowFllowMouse = true,
             Title = PlatformShared.GetApplicationName(),
-            WindowPresenterKind = WindowPresenterKind.FullScreen,
+            WindowPresenterKind = WindowPresenterKind.Default,
 #if MACCATALYST
             BackdropsKind = BackdropsKind.BlurEffect,
             BackdropConfigurations = new BackdropConfigurations
