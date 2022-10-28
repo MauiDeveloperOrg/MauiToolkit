@@ -30,6 +30,23 @@ public class ClassicalWindow : Window
         Page = page;
     }
 
+
+#if NET6_0
+
+     public static readonly BindableProperty XProperty =
+                            BindableProperty.Create(propertyName: nameof(X),
+                                                   returnType: typeof(double),
+                                                   declaringType: typeof(ClassicalWindow),
+                                                   defaultValue: 0d,
+                                                   propertyChanged: OnProperyChanged);
+
+    public static readonly BindableProperty YProperty =
+                           BindableProperty.Create(propertyName: nameof(Y),
+                                                   returnType: typeof(double),
+                                                   declaringType: typeof(ClassicalWindow),
+                                                   defaultValue: 0d,
+                                                   propertyChanged: OnProperyChanged);
+
     public static readonly BindableProperty WidthProperty =
                            BindableProperty.Create(propertyName: nameof(Width),
                                                    returnType: typeof(double),
@@ -43,6 +60,8 @@ public class ClassicalWindow : Window
                                                    declaringType: typeof(ClassicalWindow),
                                                    defaultValue: 500d,
                                                    propertyChanged: OnProperyChanged);
+
+#endif
 
     public static readonly BindableProperty WindowPresenterKindProperty =
                            BindableProperty.Create(propertyName: nameof(WindowPresenterKind),
@@ -101,6 +120,18 @@ public class ClassicalWindow : Window
                                                    propertyChanged: OnProperyChanged);
 
 
+#if NET6_0
+    public double X
+    {
+        get => (double)GetValue(XProperty);
+        set => SetValue(XProperty, value);
+    }
+
+    public double Y
+    {
+        get => (double)GetValue(YProperty);
+        set => SetValue(YProperty, value);
+    }
 
     public double Width
     {
@@ -113,6 +144,7 @@ public class ClassicalWindow : Window
         get => (double)GetValue(HeightProperty);
         set => SetValue(HeightProperty, value);
     }
+#endif
 
     public WindowPresenterKind WindowPresenterKind
     {
@@ -172,6 +204,10 @@ public class ClassicalWindow : Window
 
         switch (propertyName)
         {
+            case nameof(X):
+                break;
+            case nameof(Y):
+                break;
             case nameof(Width):
                 startup.Width = Width;
                 break;
