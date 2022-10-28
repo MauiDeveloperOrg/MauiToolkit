@@ -30,8 +30,8 @@ public partial class App : Application
         var theme = Application.Current?.RequestedTheme; 
         var window = new ClassicalWindow()
         {
-            Width = 800d,
-            Height = 600d,
+            Width = 1200d,
+            Height = 900d,
             IsShowFllowMouse = true,
             Title = PlatformShared.GetApplicationName(),
             WindowPresenterKind = WindowPresenterKind.Default,

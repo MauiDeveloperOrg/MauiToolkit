@@ -69,6 +69,9 @@ internal partial class WindowStartupWorker
             case nameof(WindowStartup.WindowPresenterKind):
             case nameof(WindowStartup.WindowAlignment):
             case nameof(WindowStartup.IsShowFllowMouse):
+                if (double.IsNaN(_WindowStartup.Width) || double.IsNaN(_WindowStartup.Height))
+                    break;
+
                 ShowWindow(_WindowStartup.WindowPresenterKind, _WindowStartup.IsShowFllowMouse, _WindowStartup.WindowAlignment, new Size(_WindowStartup.Width, _WindowStartup.Height));
                 break;
             case nameof(WindowStartup.ShowInSwitcher):
