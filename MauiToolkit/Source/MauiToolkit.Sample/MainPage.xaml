@@ -30,7 +30,7 @@
                 Clicked="OnCounterClicked"
                 HorizontalOptions="Center" />
 
-            <Grid >
+            <Grid Background="Red">
                 <Border WidthRequest="100" HeightRequest="100" HorizontalOptions="Start" VerticalOptions="Start" BackgroundColor="DeepSkyBlue"></Border>
                 <Border WidthRequest="100" HeightRequest="100"  HorizontalOptions="End" VerticalOptions="End" BackgroundColor="Yellow"></Border>
                 <Border Stroke="#C49B33"
