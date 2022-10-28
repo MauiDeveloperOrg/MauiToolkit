@@ -30,7 +30,7 @@
                 Clicked="OnCounterClicked"
                 HorizontalOptions="Center" />
 
-            <Grid WidthRequest="300" HeightRequest="300">
+            <Grid >
                 <Border WidthRequest="100" HeightRequest="100" HorizontalOptions="Start" VerticalOptions="Start" BackgroundColor="DeepSkyBlue"></Border>
                 <Border WidthRequest="100" HeightRequest="100"  HorizontalOptions="End" VerticalOptions="End" BackgroundColor="Yellow"></Border>
                 <Border Stroke="#C49B33"
@@ -42,7 +42,7 @@
                         HorizontalOptions="Center">
                 </Border>
 
-                <Border Margin="10" StrokeThickness="0">
+                <Border StrokeThickness="0" Margin="10">
                     <toolkit:MauiEffect.BlurEffect>
                         <toolkit:MauiEffect TintColor="SkyBlue" TintLuminosityOpacity="1" TintOpacity="0" FallbackColor="Blue" />
                     </toolkit:MauiEffect.BlurEffect>
