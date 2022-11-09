@@ -8,6 +8,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.editorconfig = .editorconfig
 		Directory.build.props = Directory.build.props
 		Directory.build.targets = Directory.build.targets
+		Directory.Packages.props = Directory.Packages.props
 		global.json = global.json
 	EndProjectSection
 EndProject
@@ -19,7 +20,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MauiToolkit", "Source\MauiT
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MauiToolkit.Interop", "Source\MauiToolkit.Interop\MauiToolkit.Interop.csproj", "{1D6AE84C-677C-4FC3-8F78-D1577DC93671}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MauiToolkit.Controls", "Source\MauiToolkit.Controls\MauiToolkit.Controls.csproj", "{C8951008-C4CB-4BA1-93DE-896130B85D21}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MauiToolkit.Controls", "Source\MauiToolkit.Controls\MauiToolkit.Controls.csproj", "{C8951008-C4CB-4BA1-93DE-896130B85D21}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

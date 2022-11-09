@@ -1,5 +1,7 @@
 ﻿<Project>
-
+	<PropertyGroup>
+		<ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>	
+	</PropertyGroup>
 	
 	<ItemGroup>
 		<!--<PackageReference Update="System.Text.Json" Version="6.0.4" />-->
@@ -7,7 +9,7 @@
 	</ItemGroup>
 
 	<ItemGroup Condition="$(TargetFramework.Contains('-windows'))">
-	
+		<PackageVersion Include="PInvoke.User32" Version="0.7.124" />
 		<!-- Required - WinUI does not yet have buildTransitive for everything -->
 	</ItemGroup>
 </Project>
