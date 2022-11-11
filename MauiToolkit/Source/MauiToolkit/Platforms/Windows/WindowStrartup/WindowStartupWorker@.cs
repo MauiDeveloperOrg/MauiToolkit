@@ -187,8 +187,14 @@ internal partial class WindowStartupWorker
                     _Window.ExtendsContentIntoTitleBar = false;
             }
 
+            if (_IsFullScreenSetting)
+                return true;
+
             if (_AppWindow.Presenter.Kind is not MicrosoftuiWindowing.AppWindowPresenterKind.FullScreen)
+            {
                 _AppWindow.SetPresenter(MicrosoftuiWindowing.AppWindowPresenterKind.FullScreen);
+                _IsFullScreenSetting = true;
+            }
         }
         else
         {
@@ -203,6 +209,8 @@ internal partial class WindowStartupWorker
                 var customOverlappedPresenter = MicrosoftuiWindowing.OverlappedPresenter.CreateForContextMenu();
                 _AppWindow.SetPresenter(customOverlappedPresenter);
             }
+
+            _IsFullScreenSetting = false;
         }
 
         return true;

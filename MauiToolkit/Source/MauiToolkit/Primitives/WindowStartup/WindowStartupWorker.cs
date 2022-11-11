@@ -86,6 +86,9 @@ internal partial class WindowStartupWorker : IAttachedObject
         if (string.IsNullOrWhiteSpace(e?.PropertyName))
             return;
 
+        if (_AssociatedObject?.Handler?.PlatformView is null)
+            return;
+
         PropertyChanged(e.PropertyName);
     }
 

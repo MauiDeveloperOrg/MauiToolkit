@@ -9,6 +9,7 @@ internal partial class WindowStartupWorker
     MicrosoftuiXaml.Window? _Window;
     MicrosoftuiWindowing.AppWindow? _AppWindow;
     IDisposable? _Backdrop;
+    bool _IsFullScreenSetting = false;
 
     partial void OnAttaching(Window window)
     {
