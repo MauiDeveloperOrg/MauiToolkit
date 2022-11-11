@@ -9,7 +9,7 @@ internal partial class WindowStartupWorker
     MicrosoftuiXaml.Window? _Window;
     MicrosoftuiWindowing.AppWindow? _AppWindow;
     IDisposable? _Backdrop;
-    bool _IsFullScreenSetting = false;
+    bool _IsShowPresent = false;
 
     partial void OnAttaching(Window window)
     {
@@ -23,6 +23,9 @@ internal partial class WindowStartupWorker
 
     partial void OnDetaching()
     {
+        if (_Window is not null)
+            _Window.VisibilityChanged -= Window_VisibilityChanged;
+
         _Backdrop?.Dispose();
         _Backdrop = default;
         _Window = default;
@@ -43,12 +46,26 @@ internal partial class WindowStartupWorker
         _Window = platformWindow;
         _AppWindow = platformWindow.GetAppWindow();
 
+        _Window.VisibilityChanged += Window_VisibilityChanged;
         SwitchBackdrop(_WindowStartup.BackdropsKind, _WindowStartup.BackdropConfigurations);
         ShownInSwitchers(_WindowStartup.ShowInSwitcher);
         ShowWindow(_WindowStartup.WindowPresenterKind, _WindowStartup.IsShowFllowMouse, _WindowStartup.WindowAlignment, new Size(_WindowStartup.Width, _WindowStartup.Height));
         ShowInTopMost(_WindowStartup.TopMost);
 
         return;
+    }
+
+    private void Window_VisibilityChanged(object sender, MicrosoftuiXaml.WindowVisibilityChangedEventArgs args)
+    {
+        if (_IsShowPresent)
+            return;
+
+        if (!args.Visible)
+            return;
+
+        ShowPresenter(_WindowStartup.WindowPresenterKind);
+
+        _IsShowPresent = true;
     }
 
     partial void Destroying()
