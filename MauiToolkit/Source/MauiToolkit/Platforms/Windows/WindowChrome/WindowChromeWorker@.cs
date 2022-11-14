@@ -10,7 +10,6 @@ using Microsoftui = Microsoft.UI;
 using Winui = Windows.UI;
 using WinRT;
 using MicrosoftuixamlData = Microsoft.UI.Xaml.Data;
-using Microsoft.UI.Xaml.Controls;
 
 namespace MauiToolkit.Primitives;
 

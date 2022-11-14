@@ -15,7 +15,7 @@ public partial class MainPage : ContentPage
 
     private void MainPage_HandlerChanged(object? sender, EventArgs e)
     {
-         
+
     }
 
     private void MainPage_Loaded(object? sender, EventArgs e)
