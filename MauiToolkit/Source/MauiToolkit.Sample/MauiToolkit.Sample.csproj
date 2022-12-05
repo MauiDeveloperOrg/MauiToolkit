@@ -21,6 +21,11 @@
 		<!-- Versions -->
 		<ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
 		<ApplicationVersion>1</ApplicationVersion>
+
+		<AndroidPackageFormat>apk</AndroidPackageFormat>
+		<MtouchLink>sdkobly</MtouchLink>
+		<UseInterpreter>true</UseInterpreter>
+		<MtouchExtraArgs>linkskip=PackageName</MtouchExtraArgs>
 		
 		<!--PackageSelf For WinUI3-->
 		<!--'$(Platform)' != 'AnyCPU' And -->
